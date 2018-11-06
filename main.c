@@ -6,7 +6,7 @@ void main()
 {
     int i, j;
     int n = 5;
-    int amount = 10;
+    int amount = 25;
     int max_interarions = 100;
     float distance_matrix[n][n];
     float pheromone_matrix[n][n];
@@ -26,41 +26,46 @@ void main()
     {
         fetch_best_way(ant, n, distance_matrix, information_matrix, amount);
         updating_statistics(ant, best_way, &best_distance, amount, n);
-        updating_pheromone(ant, n, pheromone_matrix);
+        updating_pheromone(ant, amount, n, pheromone_matrix);
+        printf("%d\n", i);
+        // if(i == 0)
+        // {
+            printf("melhor caminho: ");
+            for(j = 0; j < n; j++)
+                printf("%d - ", best_way[j]);
+            printf("%d\n", best_way[j]);
+
+            printf("melhor distancia: ");
+            printf("%f\n\n", best_distance);
+        // }
     }
 
     printf("\n");
-    for(i = 0; i < amount; i += 5)
-    {
-        printf("\t\tant[%d]->way => %.2f\t", i, ant[i]->way_distance);
-        printf("\t\tant[%d]->way => %.2f\t", i+1, ant[i+1]->way_distance);
-        printf("\t\tant[%d]->way => %.2f\t", i+2, ant[i+2]->way_distance);
-        printf("\t\tant[%d]->way => %.2f\t", i+3, ant[i+3]->way_distance);
-        printf("\t\tant[%d]->way => %.2f\n", i+4, ant[i+4]->way_distance);
-        for(j = 0; j < n; j++)
-        {
-            printf("\t\tant[%d]->way[%d] => %d\t", i, j, ant[i]->way[j]);
-            printf("\t\tant[%d]->way[%d] => %d\t", i+1, j, ant[i+1]->way[j]);
-            printf("\t\tant[%d]->way[%d] => %d\t", i+2, j, ant[i+2]->way[j]);
-            printf("\t\tant[%d]->way[%d] => %d\t", i+3, j, ant[i+3]->way[j]);
-            printf("\t\tant[%d]->way[%d] => %d\n", i+4, j, ant[i+4]->way[j]);
-        }
-        printf("\t\tant[%d]->way[%d] => %d\t", i, j, ant[i]->way[j]);
-        printf("\t\tant[%d]->way[%d] => %d\t", i+1, j, ant[i+1]->way[j]);
-        printf("\t\tant[%d]->way[%d] => %d\t", i+2, j, ant[i+2]->way[j]);
-        printf("\t\tant[%d]->way[%d] => %d\t", i+3, j, ant[i+3]->way[j]);
-        printf("\t\tant[%d]->way[%d] => %d\n\n", i+4, j, ant[i+4]->way[j]);
-    }
+    // for(i = 0; i < amount; i++)
+    // {
+    //     printf("ant[%d]->way => %.2f\n", i, ant[i]->way_distance);
+    //     // printf("\t\tant[%d]->way => %.2f\t", i+1, ant[i+1]->way_distance);
+    //     // printf("\t\tant[%d]->way => %.2f\n", i+2, ant[i+2]->way_distance);
+    //     for(j = 0; j < n; j++)
+    //     {
+    //         printf("ant[%d]->way[%d] => %d\n", i, j, ant[i]->way[j]);
+    //         // printf("\t\tant[%d]->way[%d] => %d\t", i+1, j, ant[i+1]->way[j]);
+    //         // printf("\t\tant[%d]->way[%d] => %d\n", i+2, j, ant[i+2]->way[j]);
+    //     }
+    //     printf("ant[%d]->way[%d] => %d\n\n", i, j, ant[i]->way[j]);
+    //     // printf("\t\tant[%d]->way[%d] => %d\t", i+1, j, ant[i+1]->way[j]);
+    //     // printf("\t\tant[%d]->way[%d] => %d\n\n", i+2, j, ant[i+2]->way[j]);
+    // }
 
     printf("melhor caminho: ");
     for(i = 0; i < n; i++)
         printf("%d - ", best_way[i]);
     printf("%d\n", best_way[i]);
 
-    printf("\nmelhor distancia: ");
+    printf("melhor distancia: ");
     printf("%f\n\n", best_distance);
 
-    for(i = 0; i < n; i++)
+    for(i = 0; i < amount; i++)
     {
         free(ant[i]);
         ant[i] = NULL;
